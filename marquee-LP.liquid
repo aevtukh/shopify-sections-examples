@@ -1,0 +1,316 @@
+<div data-section-id="{{section.id}}">
+  <marquee-text>
+      <div class="main-animation relative">
+          {% for block in section.blocks %}
+              {%- assign b_set = block.settings -%}
+              {% if b_set.name != blank %}
+                  <div class="animation-block absolute top-0 left-0 w-full">
+                      <p class="invisible absolute"><span style="{{dot_style}}">&#8226</span> {{ b_set.name }}</p>
+                      {%- comment -%}
+                      <svg width="100%" height="66" viewBox="0 0 1442 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path id="curve-{{ forloop.index }}" fill="transparent" d="M1 65C1 65 127.313 0.998882 370.515 1C657.572 1.00132 864.892 62.2874 1104.11 65C1287.5 67.0797 1401.13 10.0432 1441 1" stroke="black"/>
+                          <text width="100%" style="transform:translate3d(0,0,0);">
+                              <textPath 
+                                  style="transform:translate3d(0,0,0);" 
+                                  alignment-baseline="top" 
+                                  xlink:href="#curve-{{ forloop.index }}" 
+                                  startOffset="0" 
+                                  data-initial-offset="0" 
+                                  class="text-path">{{ b_set.name }}</textPath>
+                          </text>
+                      </svg>  
+                      {%- endcomment -%}                      
+                      {%- comment -%}{%- endcomment -%}
+                      <svg width="100%" height="145" data-mobile-heigth="120" data-desktop-heigth="145" data-desktop-width="1442" data-mobile-width="377" data-mobile-view-box="0 0 377 26" data-desktop-view-box="0 0 1442 66" viewBox="0 0 1442 66">
+                          <path id="curve-{{ forloop.index }}" fill="transparent" 
+                          d="M1 65C1 65 127.313 0.998882 370.515 1C657.572 1.00132 864.892 62.2874 1104.11 65C1287.5 67.0797 1401.13 10.0432 1441 1"
+                          data-desktop-d="M 1 65 C 1 65 171 -15 395 -8 C 646 6 867 57 1115 52 C 1218 50 1399 7 1425 0"
+                          data-mobile-d="M1 24.7017C88.5159 -3.66227 229.27 -8.32763 376 20.3359"></path>
+                          <text width="100%" style="transform:translate3d(0,0,0);">
+                              <textPath 
+                                  style="transform:translate3d(0,0,0);" 
+                                  alignment-baseline="top" 
+                                  xlink:href="#curve-{{ forloop.index }}" 
+                                  startOffset="0" 
+                                  data-initial-offset="0" 
+                                  class="text-path">
+                                  <tspan dy="6">&#8226</tspan> 
+                                  <tspan dy="-6">{{ b_set.name }}</tspan></textPath>
+                          </text>
+                      </svg>
+                      
+                  </div>
+              {% endif %}
+          {% endfor %}
+      </div>
+  </marquee-text>
+</div>
+
+<script>
+
+class MarqueeText extends HTMLElement {
+  constructor() {
+    super();
+    this.textPath = this.querySelectorAll(".text-path");
+    this.textP = this.querySelectorAll("p");
+    this.text = this.querySelectorAll("text");
+    this.svg = this.querySelector("svg");
+    this.desktopWidth = this.svg.getAttribute('data-desktop-width');
+    this.mobileWidth = this.svg.getAttribute('data-mobile-width');
+    this.defaultFontSize = parseInt(getComputedStyle(this.textP[0]).fontSize, 10);
+    this.isMobile = false;
+    this.indent = 80;
+    // svg responsive data
+    this.allSvg = this.querySelectorAll("svg");
+
+    let windowWidth = parseInt(window.innerWidth, 10);
+    if(windowWidth < 640) {
+      this.isMobile = true;
+    }
+    
+    let _this = this;
+    if(this.textPath) {
+      this.prepareText.call(this, this.textPath);
+
+      window.addEventListener('resize', function() {
+        let windowWidth = parseInt(window.innerWidth, 10);
+        if(windowWidth < 640 && !_this.isMobile) {
+          _this.isMobile = true;
+          _this.prepareText.call(_this, _this.textPath);
+        } else if (windowWidth >= 640 && _this.isMobile) {
+          _this.isMobile = false;
+          _this.prepareText.call(_this, _this.textPath);
+        }
+      })
+    }
+  }
+
+  prepareText(textPath) {
+    let _this = this;
+    let windowWidth = parseInt(window.innerWidth, 10);
+
+    /* ===>>> This code is best left until testing. After that it can be removed <<<=== */
+
+    /* let fontPercent = parseFloat((-(windowWidth - this.desktopWidth )/this.desktopWidth * 100)/100, 10).toFixed(2);
+    let mobileFontPercent = parseFloat((-(windowWidth - this.mobileWidth )/this.mobileWidth * 100)/100, 10).toFixed(2);
+    let newSize = this.defaultFontSize + (this.defaultFontSize * fontPercent);
+    let newMobileSize = this.defaultFontSize + (this.defaultFontSize * mobileFontPercent);
+    this.textP.forEach(function(item, index) {
+      if(windowWidth < 640) {
+        item.style.fontSize = newMobileSize + 'px';
+      } else {
+        item.style.fontSize = newSize + 'px';
+      }
+    })
+    this.text.forEach(function(item, index) {
+      if(windowWidth < 640) {
+        item.style.fontSize = newMobileSize + 'px';
+      } else {
+        item.style.fontSize = newSize + 'px';
+      }
+    }) */
+
+    if(windowWidth < 640) {
+      // mobile svg
+      this.allSvg.forEach(function(element) {
+        let elementHeight = element.getAttribute('data-mobile-heigth');
+        let elementViewBox = element.getAttribute('data-mobile-view-box');
+        let elementPath = element.querySelector('path');
+        let elementPathD = elementPath.getAttribute('data-mobile-d');
+        element.setAttribute('height', elementHeight)
+        element.setAttribute('viewBox', elementViewBox)
+        elementPath.setAttribute('d', elementPathD)
+      })
+    } else {
+      // desktop svg
+      this.allSvg.forEach(function(element) {
+        let elementHeight = element.getAttribute('data-desktop-heigth');
+        let elementViewBox = element.getAttribute('data-desktop-view-box');
+        let elementPath = element.querySelector('path');
+        let elementPathD = elementPath.getAttribute('data-desktop-d');
+        element.setAttribute('height', elementHeight)
+        element.setAttribute('viewBox', elementViewBox)
+        elementPath.setAttribute('d', elementPathD)
+      })
+    }
+    
+    textPath.forEach(function(item, index) {
+      let animBlock = item.closest('.animation-block');
+      let animBlockText = animBlock.querySelector('p');
+      let textWidth = parseInt(animBlockText.offsetWidth, 10);
+      
+      if(textPath[index - 1]) {
+        let prevOffset = parseInt(textPath[index - 1].getAttribute('data-initial-offset'), 10);
+        let prevWidth = parseInt(textPath[index - 1].getAttribute('data-text-width'), 10);
+        item.setAttribute('startOffset', prevOffset + prevWidth + _this.indent + 'px');
+        item.setAttribute('data-initial-offset', prevOffset+prevWidth+_this.indent);
+        item.setAttribute('data-text-width', textWidth);
+      } else {
+        item.setAttribute('startOffset', _this.indent + 'px');
+        item.setAttribute('data-initial-offset', _this.indent);
+        item.setAttribute('data-text-width', textWidth);
+      }
+    })
+
+    this.animateField.call(this, textPath)
+  }
+
+  animateField(textPath) {
+    let _this = this;
+
+    textPath.forEach(function(item, index) {
+      let offset = item.getAttribute('data-initial-offset');
+      let animBlock = item.closest('.animation-block');
+      let animBlockText = animBlock.querySelector('p');
+      let textWidth = parseInt(animBlockText.offsetWidth, 10);
+      let position = parseInt(offset, 10)
+
+      function animate() {
+        position -= 1;
+      
+        // Reset position
+        if (position < -textWidth) {
+          if(index == 0) {
+            let lastItem = textPath[textPath.length - 1];
+            position = parseInt(moveElementToEnd(item, lastItem), 10);
+          } else {
+            let lastItem = textPath[index - 1];
+            position = parseInt(moveElementToEnd(item, lastItem), 10);
+          }
+        }
+      
+        // Update position
+        item.setAttribute("startOffset", position)
+      
+        requestAnimationFrame(animate);
+      }
+      animate()
+    });
+
+    function moveElementToEnd(firstElement, lastElement) {
+      let newArray = new Array(firstElement, lastElement);
+      let animBlock = firstElement.closest('.animation-block');
+      let animBlockText = animBlock.querySelector('p');
+      let textWidth = parseInt(animBlockText.offsetWidth, 10);
+      
+      let prevOffset = parseInt(lastElement.getAttribute('startOffset'), 10);
+      let prevWidth = parseInt(lastElement.getAttribute('data-text-width'), 10);
+      firstElement.setAttribute('startOffset', prevOffset + prevWidth + _this.indent + 'px');
+      firstElement.setAttribute('data-initial-offset', prevOffset+prevWidth+_this.indent);
+      firstElement.setAttribute('data-text-width', textWidth);
+      return prevOffset+prevWidth+_this.indent;
+    }
+  }
+}
+
+customElements.define('marquee-text', MarqueeText);
+
+</script>
+
+<style>
+    .shopify-section.shopify-marquee-text [data-section-id="{{section.id}}"]{
+        transform: translateY({{section.settings.indent_mobile}}px);
+    }
+
+    @media screen and (min-width: 640px) {
+        .shopify-section.shopify-marquee-text [data-section-id="{{section.id}}"]{
+            transform: translateY({{section.settings.indent}}px);
+        }
+    }
+
+    @media screen and (min-width: 1400px) {
+        .shopify-section.shopify-marquee-text [data-section-id="{{section.id}}"]{
+            transform: translateY({{section.settings.indent-large}}px);
+        }
+    }
+    .shopify-section.shopify-marquee-text {
+        position: relative;
+        z-index: 20;
+    }
+
+    .animation-block text,
+    .animation-block p {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .animation-block text tspan:first-child,
+    .animation-block p span {
+        font-size: 40px;
+    }
+
+    .animation-block  svg{
+        overflow: visible;
+    }
+    
+    @media screen and (min-width: 640px) {
+        .animation-block text tspan:first-child,
+        .animation-block p span {
+            font-size: 50px;
+        }
+        
+        .animation-block text,
+        .animation-block p {
+            font-size: 25px;
+        }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Marquee text",
+  "class": "shopify-marquee-text",
+  "settings": [
+    {
+      "type": "range",
+      "id": "indent",
+      "min": -150,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Block desktop indent Y",
+      "default": 0
+    },
+    {
+        "type": "range",
+        "id": "indent_mobile",
+        "min": -150,
+        "max": 150,
+        "step": 5,
+        "unit": "px",
+        "label": "Block mobile indent Y",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "indent-large",
+        "min": -150,
+        "max": 150,
+        "step": 5,
+        "unit": "px",
+        "label": "Block large desktop indent Y",
+        "default": -150
+      }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+            "type": "text",
+            "id": "name",
+            "label": "t:common.headline",
+            "default": "Headline"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee text",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
