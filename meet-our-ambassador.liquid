@@ -1,0 +1,276 @@
+<style>
+    .ambassador__wrapper {
+        background: {{ section.settings.bg_color }};
+        position: relative;
+        z-index: 2;
+    }
+    .ambassador__wrapper::after {
+        content: '';
+        width: 200%;
+        height: 10%;
+        transform: rotate(-2deg);
+        position: absolute;
+        top: -25px;
+        left: -50%;
+        z-index: 1;
+        background: {{ section.settings.bg_color }};
+    }
+  
+    .ambassador__wrapper .flickity-page-dots {
+        background: {{ section.settings.bg_color }};
+    }
+
+    .ambassador__wrapper .container {
+        background: {{ section.settings.bg_color }};
+    }
+
+    .ambassador__wrapper .flickity-prev-next-button svg {
+        display: none;
+    }
+    .ambassador__wrapper .flickity-prev-next-button.previous:after {
+        transform: rotate(-135deg);
+    }
+    .ambassador__wrapper .flickity-prev-next-button:after {
+        content: "";
+        display: block;
+        border-top: 2px solid #aeadad;
+        border-right: 2px solid #aeadad;
+        width: 25px;
+        height: 25px;
+        transform: rotate(45deg);
+    }
+    .ambassador__wrapper .flickity-prev-next-button {
+        box-shadow: none;
+        background: none;
+        color: #aeadad;
+    }
+    .ambassador__wrapper .flickity-prev-next-button:hover {
+        transition: none;
+    }
+    .ambassador__wrapper .flickity-prev-next-button.next:hover svg,
+    .ambassador__wrapper .flickity-prev-next-button.previous:hover svg {
+        animation: none;
+    }
+    .ambassador__wrapper .flickity-prev-next-button.previous {
+        top: 50%;
+        left: 15px;
+        overflow: visible;
+    }
+    .ambassador__wrapper .flickity-prev-next-button.next {
+        top: 50%;
+        right: 15px;
+    }
+    .ambassador__wrapper .flickity-page-dots .dot {
+        width: 24px;
+        height: 0px;
+        border: 2px solid #aeadad;
+        border-radius: 0 !important;
+    }
+    .ambassador__wrapper .flickity-page-dots .dot.is-selected {
+        border: 2px solid #ff6a13;
+    }
+
+    @media (max-width: 1280px) {
+        .ambassador__wrapper .flickity-prev-next-button.previous {
+            left: 30px;
+        }
+        .ambassador__wrapper .flickity-prev-next-button.next {
+            right: 0px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .ambassador__wrapper .flickity-page-dots {
+            bottom: 14px;
+        }
+        .ambassador__wrapper .flickity-page-dots .dot {
+            border: 2px solid #aeadad;
+        }
+        .ambassador__wrapper .flickity-page-dots .dot.is-selected {
+            border: 2px solid #ff6a13;
+        }
+        .ambassador__wrapper .flickity-prev-next-button.next {
+            top: 40%;
+            right: -18px;
+        }
+        .ambassador__wrapper .flickity-prev-next-button.previous {
+            top: 40%;
+            left: 15px;
+        }
+        .ambassador__wrapper::after {
+            height: 8%;
+            transform: rotate(-3deg);
+        }
+        .ambassador__wrapper .flickity-prev-next-button {
+            transform: scale(1);
+        }
+        .ambassador__wrapper .flickity-prev-next-button:after {
+            width: 13px;
+            height: 13px;
+        }
+    }
+</style>
+
+
+{% capture flickity_options %}
+    {
+      "prevNextButtons": true,
+      "pageDots": true,
+      "wrapAround": true,
+      "dragThreshold": 15,
+      "pauseAutoPlayOnHover": false,
+      "autoPlay": 5000,
+      "adaptiveHeight": true
+    }
+{% endcapture %}
+<section id="section-{{ section.id }}" data-section-id="{{ section.id }}">
+<ambassador-section class="ambassador__wrapper block container relative h-full py-[45px]" id="section-hero-medium-{{section.id}}" data-flickity-config='{{ flickity_options }}'>
+    {% for block in section.blocks %}
+        <div class="w-full">
+            <div class="ambassador__slide pt-0 sm:py-[56px] sm:pt-[60px] justify-center flex flex-wrap items-center relative">
+                <div class="image-text__wrapper w-full flex flex-col md:flex-row justify-center">
+                    {% if block.settings.headline %}
+                        <div class="text-2xl md:hidden lg:text-7xl mb-2 mt-2 font-semibold text-left leading-tight ambassador-headline__mobile block md:hidden">
+                            <h3 class="headline mb-[48px!important] p-0 italic italic font-bold uppercase text-[#ff6a13] text-[32px] text-center">{{ block.settings.headline }}</h3>
+                        </div>
+                    {% endif %}
+                    <div class="flex image__wrapper w-full md:w-1/2 py-0 pb-[28px] lg:py-[20px] xl:py-0 px-[16px] sm:px-5 ">
+                        <img src="{{ block.settings.slide-image | img_url: '1000x'}}" loading="lazy" alt/>
+                    </div>
+                    <div class="content_wrapper w-full md:w-1/2 relative z-10 text-wrapper">
+                        <div class="content__wrapper px-[20px] pt-0 lg:pt-[32px] pb-[0px] flex flex-col md:pl-[30px] xl:pl-[70px] xl:mb-[50px] justify-center">
+                            {% if block.settings.headline %}
+                                <div class="text-2xl lg:text-7xl mb-0 lg:mb-2 font-semibold leading-tight ambassador-headline__desktop hidden md:block">
+                                    <h3 class="headline text-center sm:text-left italic font-bold text-[32px] leading-[39px] md:text-[32px] lg:text-[40px] xl:text-[48px] xl:leading-[59px] uppercase text-[#ff6a13]">{{ block.settings.headline }}</h3>
+                                </div>
+                            {% endif %}
+
+                            {% if block.settings.text %}
+                                <div class="w-full">
+                                    <p class="ambassador-comment pr-0 lg:pr-[20px] text-center sm:text-left text-[18px] md:text-[20px] xl:text-[24px] text-[#353133] leading-[32px] mb-[1.5rem] xl:mb-[2rem]">{{ block.settings.text }}</p>
+                                </div>
+                            {% endif %}
+                            {% if block.settings.name %}
+                                <div class="w-full">
+                                    <p class="ambassador-name uppercase text-center sm:text-left font-semibold text-[14px] md:text-[16px] leading-[24px] p-0 m-0">{{ block.settings.name }}</p>
+                                </div>
+                            {% endif %}
+                            {% if block.settings.position %}
+                                <div class="w-full">
+                                    <p class="ambassador-position uppercase text-center sm:text-left mb-[5px] text-[14px] md:text-[16px] leading-[24px]">{{ block.settings.position }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</ambassador-section>
+</section>
+
+
+{% javascript %}
+
+class AmbassadorSection extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        document.addEventListener("DOMContentLoaded", function () {
+            let flktyElem = document.querySelector('.ambassador__wrapper');
+
+            if (flktyElem) {
+                let flktySettings = Object.assign(JSON.parse(flktyElem.getAttribute('data-flickity-config')));
+                var flkty = new Flickity('.ambassador__wrapper', flktySettings);
+            }
+        });
+    }
+}
+
+customElements.define('ambassador-section', AmbassadorSection);
+
+{% endjavascript %}
+
+
+{% schema %}
+
+{
+    "name": "Meet Our ambassador",
+    "class": "shopify-section-vue shopify-section--slideshow bg-darkGrey",
+    "settings": [
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "default": "#F5F7F9"
+        }, {
+            "type": "checkbox",
+            "id": "show_arrow",
+            "label": "Show bottom arrow",
+            "default": true
+        }, {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "Auto rotate between slides",
+            "default": false
+        }, {
+            "type": "range",
+            "id": "cycle_speed",
+            "min": 3,
+            "max": 8,
+            "step": 1,
+            "unit": "sec",
+            "label": "Change slides every",
+            "default": 5
+        }
+    ],
+    "blocks": [
+        {
+            "name": "SLide",
+            "type": "Slide",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "slide-image",
+                    "label": "Square Image",
+                    "info": "Upload a square image (minimum 900px x 900px) or full-width image (minimum 1800px x 600px)"
+                }, {
+                    "type": "text",
+                    "id": "headline",
+                    "label": "Headline",
+                    "default": "Headline"
+                }, {
+                    "type": "textarea",
+                    "id": "text",
+                    "label": "Text",
+                    "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque."
+                }, {
+                    "type": "text",
+                    "id": "name",
+                    "label": "Name",
+                    "default": "Name"
+                }, {
+                    "type": "text",
+                    "id": "position",
+                    "label": "Position",
+                    "default": "Position"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Meet Our ambassador",
+            "category": "Hero",
+            "blocks": [
+                {
+                    "type": "Slide"
+                }
+            ]
+        }
+    ]
+}
+
+{% endschema %}
