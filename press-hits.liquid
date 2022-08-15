@@ -1,0 +1,257 @@
+<div>
+    <div class="tabbed desktop--view">
+        {% for block in section.blocks %}
+              <input type="radio" id="tab{{ block.id }}" name="css-tabs2">
+        {% endfor %}
+        <ul class="tabs">
+          {% for block in section.blocks %}
+              <li class="tab">
+                  <label for="tab{{ block.id }}">
+                      <img src="{{ block.settings.tab-logo-grey | img_url: '' }}" alt="{{ block.settings.tab-logo-grey.alt }}" class="unchecked">
+                      <img src="{{ block.settings.tab-logo-pink | img_url: '' }}" alt="{{ block.settings.tab-logo-pink.alt }}" class="checked">
+                  </label>
+              </li>
+          {% endfor %}
+        </ul>
+        <div class="tab-content__wrapper">
+          {% for block in section.blocks %}
+              <div class="tab-content">
+                  <h2>{{ block.settings.tab-content }}</h2>
+                  <div class="underline-block"></div>
+              </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="mobile--view">
+        <div class="mobile--view__wrapper" data-flickity='{ 
+            "cellAlign": "left",
+            "contain": true,
+            "pageDots": false,
+            "wrapAround": true }'>
+            {% for block in section.blocks %}
+            <div class="slide-press">
+                <div class="slide-press__title">
+                    <h2>{{ block.settings.tab-content }}</h2>
+                    <div class="underline-block"></div>
+                </div>
+                <div class="slide-press__image">
+                  <img src="{{ block.settings.tab-logo-pink | img_url: 'master' }}" alt="{{ block.settings.tab-logo-pink.alt }}" class="checked">
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<style>
+   .press-hits__wrapper .mobile--view {
+     display: none;
+   }
+
+  .press-hits__wrapper .tab-content {
+    flex-direction: column;
+  }
+
+  .press-hits__wrapper .tab-content h2 {
+      font-size: 37px;
+      line-height: 48px;
+      font-family: "Avant Garde Gothic Pro Medium";
+      margin-bottom: 24px;
+      padding:0 34px;
+  }
+
+  .press-hits__wrapper .underline-block {
+    width: 70px;
+    height: 3px;
+    background-color: #FE51BC;
+    margin-bottom: 25px;
+  }
+  
+  .press-hits__wrapper{
+    /* min-height: 400px; */
+  }
+  .press-hits__wrapper label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .press-hits__wrapper .tabbed {
+    overflow-x: hidden;
+    padding-bottom: 16px;
+    max-width: 986px;
+    margin: 0 auto;
+    padding: 120px 0 70px;
+  }
+
+  .press-hits__wrapper .tabbed [type="radio"] {
+    display: none;
+  }
+  .press-hits__wrapper .tabbed {
+      display: flex;
+      flex-direction: column-reverse;
+  }
+
+  .press-hits__wrapper .tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    max-width: 840px;
+    margin: 0 auto;
+  }
+  .press-hits__wrapper .tab > label {
+    display: block;
+    cursor: pointer;	
+  }
+  
+  .press-hits__wrapper .tab-content {
+    display: none;
+    color: #333333;
+    max-width: 986px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .tabs img {
+    width: auto;
+    padding: 0 15px;
+  }
+  .tabs img.checked {
+    display: none;
+  }
+  
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(1):checked ~ .tabs .tab:nth-of-type(1) label img.checked,
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(2):checked ~ .tabs .tab:nth-of-type(2) label img.checked,
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(3):checked ~ .tabs .tab:nth-of-type(3) label img.checked,
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(4):checked ~ .tabs .tab:nth-of-type(4) label img.checked {
+    display: inline;
+  }
+
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(1):checked ~ .tabs .tab:nth-of-type(1) label img.unchecked,
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(2):checked ~ .tabs .tab:nth-of-type(2) label img.unchecked,
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(3):checked ~ .tabs .tab:nth-of-type(3) label img.unchecked,
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(4):checked ~ .tabs .tab:nth-of-type(4) label img.unchecked {
+    display: none;
+  }
+
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(1):checked ~ .tab-content__wrapper .tab-content:nth-of-type(1),
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(2):checked ~ .tab-content__wrapper .tab-content:nth-of-type(2),
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(3):checked ~ .tab-content__wrapper .tab-content:nth-of-type(3),
+  .press-hits__wrapper .tabbed [type="radio"]:nth-of-type(4):checked ~ .tab-content__wrapper .tab-content:nth-of-type(4) {
+    display: flex;
+    align-items: center;
+  }
+  
+  @media screen and (max-width:640px) {
+    
+    .press-hits__wrapper .desktop--view {
+        display: none;
+    }
+    .press-hits__wrapper .mobile--view {
+      display: block;
+      padding: 56px 0;
+    }
+    .press-hits__wrapper .slide-press__title h2{
+        font-size: 23px;
+        line-height: 32px;
+        font-family: "Avant Garde Gothic Pro Medium";
+        margin-bottom: 16px;
+        text-align: center;
+    }
+    .press-hits__wrapper .slide-press {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 34px;
+    }
+    .press-hits__wrapper .underline-block {
+        margin: 0 auto;
+        margin-top: 16px;
+        width: 48px;
+        height: 2px;
+    }
+    .press-hits__wrapper .slide-press__image {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        width: 35%;
+    }
+    .press-hits__wrapper .slide-press__image img{
+        width: auto;
+    }
+    .press-hits__wrapper .flickity-button:focus {
+        box-shadow: 0 0 0 1px #FE51BC;
+    }
+    .press-hits__wrapper .flickity-prev-next-button.previous,
+    .press-hits__wrapper .flickity-prev-next-button.next {
+        color: #C5C5C5;
+    }
+    .press-hits__wrapper .flickity-prev-next-button {
+        width: 20px;
+        height: 20px;
+    }
+  }
+
+</style>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    setTimeout(() => {
+      var tabs = document.querySelectorAll(".press-hits__wrapper input[name='css-tabs2']");
+      tabs[0].setAttribute("checked", true);
+    }, 500);
+    
+  });
+</script>
+
+{% schema %}
+{
+"name": "Press hits",
+"class": "press-hits__wrapper",
+"max_blocks": 4,
+"settings": [
+    
+  ],
+  "blocks": [
+  {
+    "type": "Tab",
+    "name": "Tab",
+    "settings": [
+      {
+        "type": "text",
+        "id": "tab-content",
+        "label": "Tab title",
+        "default": "Tab title"
+      },
+      {
+        "type": "image_picker",
+        "id": "tab-logo-grey",
+        "label": "Tab logo image grey",
+        "info": "Choose any image or opload from your device."
+      },
+      {
+        "type": "image_picker",
+        "id": "tab-logo-pink",
+        "label": "Tab logo image pink",
+        "info": "Choose any image or opload from your device."
+      }
+    ]
+  }
+],
+"presets": [
+  {
+  "name": "Press hits",
+  "category": "Tabs",
+  "blocks": [
+        {
+          "type": "Tab",
+          "settings": {}
+        }
+      ]
+  }
+]
+}
+{% endschema %}
