@@ -1,0 +1,259 @@
+<div class="shop-by-categories__section">
+  <div class="shop-by-categories__wrapper">
+    {% if section.settings.title != blank %}
+      <h2 class="shop-by-categories__title">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+
+    <div class="collections__wrapper" >
+      {% for block in section.blocks limit: section.blocks.size %}
+        <div class="category-slide">
+            {%- assign collection = collections[block.settings.collection] -%}
+            {% if block.settings.image != blank %}
+                {%- assign img_object = block.settings.image -%}
+            {% elsif collection.image %}
+                {%- assign img_object = collection.image -%}
+            {%- elsif collection.products.first -%}
+                {%- assign img_object = collection.products.first.featured_media.preview_image -%}
+            {%- endif -%}
+            <div class="grid__item collection-hero"  >
+            <div class=" collection-grid-item section--image {{ section.settings.text_color }}">
+                {%- assign item_link = collection.url | default: '#' -%}
+                {%- if block.settings.button_link != blank -%}
+                {% assign item_link = block.settings.button_link -%}
+                {%- endif -%}
+                <a href="{{ item_link }}" class="link-over-image" aria-label="{{ collection.title | default: block.settings.title | strip_html | escape }}">
+                    <div class="link-image__wrapper">
+                        <img src="{{ img_object | img_url: 'master'}}" alt="{{ img_object.alt }}" class="lazyautosizes lazyloaded">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="collection-title-link__wrapper">
+                        <div class="hero__content__wrapper">
+                            {% unless block.settings.title == '' %}
+                                <h2 class="hero__title">
+                                    <span class="">{{ block.settings.title | escape }}</span>{%- render 'arrow-collection'-%}
+                                </h2>
+                            {% endunless %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% if section.blocks.size == 0 %}
+    <div class="text-center">{{ 'home_page.onboarding.no_content' | t }}</div>
+  {% endif %}
+</div>
+
+<style>
+    .shop-by-categories__section {
+        width: 100%;
+        background: {{ section.settings.bg_color }};
+    }
+    .shop-by-categories__wrapper {
+        max-width: 1440px;
+        padding: 120px 127px 80px;
+        margin: 0 auto;
+    }
+    .shop-by-categories__wrapper .collection-hero {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        width: 100%;
+    }
+    .shop-by-categories__wrapper .collections__wrapper {
+        display: flex;
+        width: 100%;
+    } 
+    .shop-by-categories__title {
+        font-size: 31px;
+        line-height: 130%;
+        font-family: "Avant Garde Gothic Pro Medium";
+        margin-bottom: 32px;
+        color: #333333;
+    }
+    .shop-by-categories__wrapper .link-image__wrapper {
+        margin-bottom: 26px;
+    }
+
+    .shop-by-categories__wrapper .collection-link span {
+        color: #333333;
+    }
+    .shop-by-categories__wrapper .collection-link path,
+    .shop-by-categories__wrapper .collection-link span {
+        transition: all ease-in-out .3s;
+    }
+
+    .link-over-image .link-image__wrapper {
+        position: relative;
+    }
+
+    .link-over-image .link-image__wrapper .image-overlay {
+        transition: all ease-in-out .3s;
+    }
+
+    .link-over-image:hover .link-image__wrapper .image-overlay{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #FFF5F4;
+        opacity: 0.5;
+        z-index: 100;
+    }
+
+    .shop-by-categories__wrapper .link-over-image span,
+    .shop-by-categories__wrapper .link-over-image path {
+        transition: all ease-in-out 0.3s;
+    }
+
+    .shop-by-categories__wrapper .link-over-image:hover span {
+        color: #FE51BC;
+    }
+    .shop-by-categories__wrapper .link-over-image:hover path {
+        stroke: #FE51BC;
+    } 
+
+    .shop-by-categories__wrapper .hero__title {
+        color: #333333;
+        font-size: 25px;
+        font-family: "Avant Garde Gothic Pro Medium";
+        display: flex;
+        align-items: center;
+    } 
+    .shop-by-categories__wrapper .hero__title span {
+        margin-right: 16px;
+        padding-top: 6px;
+    }
+    .shop-by-categories__wrapper .category-slide {
+        margin: 0 10px;
+    }
+    .shop-by-categories__wrapper .category-slide:first-of-type {
+        margin-left: 0;
+    }
+    .shop-by-categories__wrapper .category-slide:last-of-type {
+        margin-right: 0;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .shop-by-categories__wrapper {
+            padding: 60px 20px;
+        }
+        .shop-by-categories__wrapper .hero__title {
+            font-size: 18px;
+            line-height: 24px;
+        }
+    }
+    @media screen and (max-width: 640px) {
+        .shop-by-categories__wrapper {
+            padding: 50px 0 50px 20px;
+        }
+        .shop-by-categories__title {
+            font-size: 25px;
+            margin-bottom: 24px;
+        }
+        .shop-by-categories__wrapper .flickity-viewport {
+            width: 100%;
+        }
+        .shop-by-categories__wrapper .category-slide {
+            width: 67%;
+            margin: 0;
+        }
+        .shop-by-categories__wrapper .collection-hero {
+            width: 100%;
+            margin: 0!important;
+            max-width: 90%;
+        }
+        .shop-by-categories__wrapper .category-slide.is-selected .collection-hero{
+            margin-left: 0px;
+        }
+        .shop-by-categories__wrapper .hero__title span {
+            margin-right: 8px;
+        }
+    } 
+</style>
+
+<script>
+    function initSlider(x) {
+      if (x.matches) {
+        document.querySelector('.shop-by-categories__wrapper .collections__wrapper').setAttribute('data-flickity', '{"cellAlign": "left","contain": true, "pageDots": false, "wrapAround": true, "prevNextButtons": false}');
+      }
+    }
+    
+    var x = window.matchMedia("(max-width: 640px)")
+    initSlider(x) // Call listener function at run time
+    x.addListener(initSlider) // Attach listener function on state changes
+</script>
+
+{% schema %}
+  {
+    "name": "Shop by Category",
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background overlay",
+        "default":"#ffffff"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Collection list"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "featured_collection",
+        "name": "Category",
+        "settings": [
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Featured collection"
+          },
+          {
+            "type": "header",
+            "content": "Override defaults"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shop by Category",
+        "category": "Collection",
+        "settings": {
+        },
+        "blocks": [
+          {
+            "type": "featured_collection"
+          },
+          {
+            "type": "featured_collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
