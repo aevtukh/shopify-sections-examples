@@ -1,0 +1,460 @@
+<style>
+  .wearable-wellness-section__wrapper {
+    overflow:hidden;
+    position: relative;
+    clip-path: polygon(0px 3%, 100% 0%, 100% 97%, 0 100%);
+  }
+  .wearable-wellness-section__wrapper::before {
+    content: url("../assets/Vector.svg");
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index:0;
+    opacity: 0.5;
+  }
+  .wearable-wellness-section__wrapper .link__wrapper {
+    transition: all 0.3s ease-in;
+  }
+  .wearable-wellness-section__wrapper .link__wrapper:hover {
+    border-bottom: 2.5px solid #FF6A13;
+  }
+  .wearable-wellness-section__wrapper .container {
+    position: relative;
+    z-index: 1;
+  } 
+
+  .wearable-wellness-section__wrapper .ImageHero {
+    min-height: auto;
+  }
+  .wearable-wellness-section__wrapper .headline {
+    color: #FF6A13;
+  }
+  .wearable-wellness-section__wrapper .SectionHeader__IconHolder svg path {
+    fill:#ffffff;
+  }
+  .link__wrapper a:hover > span{
+    color: #FF6A13;
+    margin-right: 0.7rem;
+  }
+  .wearable-wellness-section__wrapper .link__wrapper a > svg path,
+  .wearable-wellness-section__wrapper .link__wrapper a span {
+    transition: all 0.3s ease-in-out;
+  }
+  .wearable-wellness-section__wrapper .link__wrapper a:hover > svg path {
+    stroke: #FF6A13;
+  }
+  .wearable-wellness-section__wrapper .block-headline {
+    color:#fff
+  }
+  .wearable-wellness-section__wrapper .FeaturedProduct__Info {
+    margin-left: 0;
+  }
+  .wearable-wellness-section__wrapper .ProductMeta__Title {
+    color:#fff;
+    padding-bottom: 8px;
+    padding-bottom: 0;
+  }
+  .wearable-wellness-section__wrapper .ProductMeta__Title a:hover {
+    color:#FF6A13;
+  }
+  .wearable-wellness-section__wrapper .ProductMeta__PriceList .ProductMeta__Price {
+    margin-top: 0;
+    color: #fff;
+  }
+  .wearable-wellness-section__wrapper .tab-content {
+    flex-direction: column;
+  }
+  
+  .wearable-wellness-section__wrapper {
+    background: linear-gradient(56.18deg, #474747 7.6%, #000000 65.04%, #000000 100.02%);;
+  }
+  .wearable-wellness-section__wrapper .yotpo .standalone-bottomline {
+    margin-bottom:0px!important;
+  }
+  .wearable-wellness-section__wrapper .yotpo .yotpo-icon-half-star,
+  .wearable-wellness-section__wrapper .yotpo .yotpo-icon-star {
+    visibility: hidden;
+  }
+  .wearable-wellness-section__wrapper .yotpo .yotpo-icon-half-star:before,
+  .wearable-wellness-section__wrapper .yotpo .yotpo-icon-star:before {
+    color: #FFD200;
+    visibility: visible;
+  }
+  .wearable-wellness-section__wrapper .tabbed {
+    overflow-x: hidden; /* so we could easily hide the radio inputs */
+    margin: 32px 0;
+    padding-bottom: 16px;
+  }
+
+  .wearable-wellness-section__wrapper .tabbed [type="radio"] {
+    /* hiding the inputs */
+    display: none;
+  }
+
+  .wearable-wellness-section__wrapper .tabs {
+    display: flex;
+    align-items: stretch;
+    list-style: none;
+    padding: 0;
+  }
+  .wearable-wellness-section__wrapper .tab > label {
+    display: block;
+    margin-bottom: -1px;
+    padding: 12px 15px;
+    border-bottom: 4px solid #AEADAD;
+    color: #AEADAD;
+    font-size: 12px; 
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;	
+    transition: all 0.3s;
+  }
+  .wearable-wellness-section__wrapper .tab:hover label {
+    color: #333;
+  }
+
+  .wearable-wellness-section__wrapper .tab-content {
+    display: none;
+    color: #fff;
+  }
+
+  .wearable-wellness-section__wrapper .tabbed [type="radio"]:nth-of-type(1):checked ~ .tabs .tab:nth-of-type(1) label,
+  .wearable-wellness-section__wrapper .tabbed [type="radio"]:nth-of-type(2):checked ~ .tabs .tab:nth-of-type(2) label,
+  .wearable-wellness-section__wrapper .tabbed [type="radio"]:nth-of-type(3):checked ~ .tabs .tab:nth-of-type(3) label{
+    color: #FF6A13;
+    border-bottom: 4px solid #FF6A13;
+  }
+
+  .wearable-wellness-section__wrapper .tabbed [type="radio"]:nth-of-type(1):checked ~ .tab-content:nth-of-type(1),
+  .wearable-wellness-section__wrapper .tabbed [type="radio"]:nth-of-type(2):checked ~ .tab-content:nth-of-type(2),
+  .wearable-wellness-section__wrapper .tabbed [type="radio"]:nth-of-type(3):checked ~ .tab-content:nth-of-type(3),
+  .wearable-wellness-section__wrapper .tabbed [type="radio"]:nth-of-type(4):checked ~ .tab-content:nth-of-type(4) {
+    display: flex;
+  }
+  .wearable-wellness-section__wrapper  .yotpo-bottomline {
+    display: flex;
+    align-items: center;
+  }
+  .wearable-wellness-section__wrapper .ProductMeta__PriceList {
+    margin-top: 8px;
+  }
+
+  @media screen and (min-width:1140px) {
+    .wearable-wellness-section__wrapper .ImageHero {
+      min-height: 410px;
+    }
+  }
+  @media screen and (min-width:768px) {
+    .wearable-wellness-section__wrapper .tab-content {
+      flex-direction: row;
+    }
+    .wearable-wellness-section__wrapper .ProductMeta__PriceList {
+      margin-top: 5px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+      .wearable-wellness-section__wrapper .block-headline {
+          margin: 0 auto;
+          max-width: 90%;
+          width: 100%;
+      }
+      .long-description-section__wrapper .block-headline {
+          margin: 0 auto 16px;
+          max-width: 90%;
+          width: 100%;
+      }
+      .wearable-wellness-section__wrapper::before {
+        content: none;
+      }
+      .wearable-wellness-section__wrapper {
+        clip-path: polygon(0px 2%, 100% 0%, 100% 98%, 0 100%);
+      }
+  }
+
+  @media (min-width: 768px) and (max-width: 1110px) {
+    .wearable-wellness-section__wrapper::before {
+      top: -110px;
+      left: -50px;
+    }
+  }
+  @media screen and (max-width:600px) {
+    .wearable-wellness-section__wrapper::after {
+      left: -100px;
+      bottom: -130px;
+    }
+    .wearable-wellness-section__wrapper::before {
+      top: -125px;
+      left: -50px;
+    }
+  }
+</style>
+
+{% assign video = section.settings.video %}
+{% assign s_set = section.settings %}
+
+<div class="wearable-wellness-section__wrapper overflow-hidden relative pt-[120px] pb-[120px] lg:pt-[178px] lg:pb-[178px]">
+    <div class="container max-w-7xl w-full p-0">
+      <div class="px-[16px] lg:px-0">
+        <h2 class="font-bold text-[32px] md:text-[48px] pt-0 text-center headline uppercase mb-14 p-0 italic">{{ s_set.title }}</h2>
+        <div class="tabbed">
+          {% for block in section.blocks %}
+            <input type="radio" id="tab{{ block.id }}" name="css-tabs2">
+          {% endfor %}
+          <ul class="tabs flex justify-center">
+            {% for block in section.blocks %}
+            <li class="tab w-1/3 text-center"><label for="tab{{ block.id }}">{{ block.settings.tab-title }}</label></li>
+            {% endfor %}
+          </ul>
+          {% for block in section.blocks %}
+          <div class="tab-content w-full flex md:flex-row flex-сol justify-between">
+            <div class="w-full md:w-1/2 mt-8 lg:mt-14">
+              {%- if block.settings.tab-logo != blank -%}
+              <div class="mb-2 lg:mb-4 flex justify-center md:justify-start">
+                <img src="{{ block.settings.tab-logo | image_url: width: 100 }}" alt="{{block.settings.tab-logo.alt}}">
+              </div>
+              {%- endif -%}
+              {%- if block.settings.content-heading != blank -%}
+                <h3 class="block-headline font-semibold lg:max-w-[400px] text-[18px]  lg:text-[24px] uppercase p-0 mb-2 lg:mb-4 text-center md:text-left">{{ block.settings.content-heading }}</h3>
+              {%- endif -%}
+              {%- if block.settings.content != blank -%}
+                <p class="mb-10 pb-0 text-[14px] lg:text-[16px] w-full lg:max-w-[380px] text-center md:text-left">{{ block.settings.content }}</p>
+              {%- endif -%}
+              {%- if block.settings.button_label != blank -%}
+              <div class="link__wrapper hidden md:inline-block">
+                <a href="{{ block.settings.button-url }}" class="font-semibold text-[16px] lg:text-[18px] italic flex items-center"><span class="mr-2">{{ block.settings.button_label }}</span>{% render 'Arrow-svg' %}</a>
+              </div>
+              {%- endif -%}
+            </div>
+            <div class="w-full md:w-1/2 mt-8 lg:mt-14">
+              <div class="products__wrapper flex justify-center md:justify-end">
+                {%- if block.settings.product_1 != blank -%}
+                  <div class="product-item w-1/2 md:w-2/5 pr-[8px] md:pr-0">
+                    <div class="product-image">
+                      {%- if block.settings.product_1.media.size > 0 -%}
+                        <a href="{{ block.settings.product_1.url }}" class="FeaturedProduct__Gallery">
+                          {%- capture supported_sizes -%}{%- render 'image-size', sizes: '200,300,400,600,700,800,900,1000', image: block.settings.product_1.featured_media -%}{%- endcapture -%}
+
+                          {%- assign media_aspect_ratio = block.settings.product_1.featured_media.aspect_ratio | default: block.settings.product_1.featured_media.preview_image.aspect_ratio -%}
+                          <div class="AspectRatio" style="max-width: {{ product.featured_media.preview_image.width }}px; --aspect-ratio: {{ media_aspect_ratio }}">
+                            {% assign image_url = block.settings.product_1.featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+                            <img class="Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ block.settings.product_1.featured_media.alt | escape }}">
+                            <span class="Image__Loader"></span>
+
+                            <noscript>
+                              <img src="{{ block.settings.product_1.featured_media | img_url: '600x' }}" alt="{{ block.settings.product_1.featured_media.alt | escape }}">
+                            </noscript>
+                          </div>
+                        </a>
+                      {%- endif -%}
+                    </div>
+                    <div class="product-content">
+                      <div class="FeaturedProduct__Info">
+                        {%- render 'product-meta-new', product: block.settings.product_1 -%}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.product_2 != blank -%}
+                  <div class="product-item w-1/2 md:w-2/5 ml-0 md:ml-[30px] pl-[8px] md:pl-0">
+                    <div class="product-image">
+                      {%- if block.settings.product_2.media.size > 0 -%}
+                        <a href="{{ block.settings.product_2.url }}" class="FeaturedProduct__Gallery">
+                          {%- capture supported_sizes -%}{%- render 'image-size', sizes: '200,300,400,600,700,800,900,1000', image: block.settings.product_2.featured_media -%}{%- endcapture -%}
+
+                          {%- assign media_aspect_ratio = block.settings.product_2.featured_media.aspect_ratio | default: block.settings.product_2.featured_media.preview_image.aspect_ratio -%}
+                          <div class="AspectRatio" style="max-width: {{ product.featured_media.preview_image.width }}px; --aspect-ratio: {{ media_aspect_ratio }}">
+                            {% assign image_url = block.settings.product_2.featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+                            <img class="Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ block.settings.product_2.featured_media.alt | escape }}">
+                            <span class="Image__Loader"></span>
+
+                            <noscript>
+                              <img src="{{ block.settings.product_2.featured_media | img_url: '600x' }}" alt="{{ block.settings.product_2.featured_media.alt | escape }}">
+                            </noscript>
+                          </div>
+                        </a>
+                      {%- endif -%}
+                    </div>
+                    <div class="product-content">
+                      <div class="FeaturedProduct__Info">
+                        {%- render 'product-meta-new', product: block.settings.product_2 -%}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+            {%- if block.settings.button_label != blank -%}
+              <div class="link__wrapper mobile-link md:hidden flex justify-center mt-[42px]">
+                <a href="{{ block.settings.button-url }}" class="font-semibold text-[16px] lg:text-[18px] italic flex items-center"><span class="mr-2">{{ block.settings.button_label }}</span>{% render 'Arrow-svg' %}</a>
+              </div>
+              {%- endif -%}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    
+      <div class="FlexboxIeFix max-h-[410px] px-[16px] lg:px-0">
+            {%- capture mobile_size -%}750x{% if section.settings.image.height >= 960 %}960{% else %}{{ section.settings.image.height }}{% endif %}{%- endcapture -%}
+        
+            <div class="ImageHero h-[234px] md:h-[334px] lg:h-[410px] max-h-[410px]" {% if section.settings.image %}style="background: url({{ section.settings.image | img_url: '1x1', format: 'jpg' }})"{% endif %}>
+              <div class="ImageHero__ImageWrapper">
+                <div class="ImageHero__Image Image--lazyLoad Image--zoomOut"
+                     data-optimumx="1.4"
+                     data-expand="-150"
+                     {% if section.settings.image %}data-bgset="{{ section.settings.image | img_url: mobile_size, crop: 'center' }} 750w, {{ section.settings.image | img_url: '1000x' }} 1000w, {{ section.settings.image | img_url: '1500x' }} 1500w"{% endif %}>
+                </div>
+        
+                <noscript>
+                  <div class="ImageHero__Image" style="background-image: url({{ section.settings.image | img_url: '1000x' }})"></div>
+                </noscript>
+        
+                {%- unless section.settings.image != blank -%}
+                  <div class="PlaceholderBackground">
+                    {{ 'lifestyle-2' | placeholder_svg_tag: 'PlaceholderBackground__Svg PlaceholderSvg--dark' }}
+                  </div>
+                {%- endunless -%}
+              </div>
+        
+              <div class="ImageHero__ContentOverlay max-h-[410px]">
+                <header class="SectionHeader">
+                  <div class="SectionHeader__IconHolder">
+                    <button type="button" class="Video__PlayButton" data-action="open-modal" aria-label="{{ 'home_page.featured_video.play' | t }}" aria-controls="modal-{{ section.id }}">{% render 'icon' with 'play' %}</button>
+                  </div>
+                </header>
+              </div>
+            </div>
+      </div>
+      <div id="modal-{{ section.id }}" class="Modal Modal--fullScreen Modal--videoContent" aria-hidden="true" role="dialog" data-scrollable>
+      <div class="Modal__Content">
+        <div class="Container Container--narrow">
+          <div class="VideoWrapper">
+          {% if section.settings.video_url.type == 'youtube' %}
+            <iframe class="Image--lazyLoad" data-src="//www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&showinfo=0&controls=1&rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+          {% elsif section.settings.video_url.type == 'vimeo' %}
+            <iframe class="Image--lazyLoad" data-src="//player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&portrait=0&byline=0&color={{ settings.accent_color | remove_first: '#' }}" frameborder="0"></iframe>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+      <button class="Modal__Close Modal__Close--outside" data-animate-bottom data-action="close-modal">{% render 'icon' with 'close' %}</button>
+      </div>
+    </div>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    setTimeout(() => {
+      var reviews = document.querySelectorAll('.wearable-wellness-section__wrapper .text-m');
+      reviews.forEach((el) => el.innerText = `(${el.innerText.split(' ').slice(0, 1).join()})`);
+
+      var tabs = document.querySelectorAll(".wearable-wellness-section__wrapper input[name='css-tabs2']");
+      tabs[0].setAttribute("checked", true)
+    }, 1000)
+  });
+</script>
+
+{% schema %}
+{
+"name": "Wearable wellness tabs",
+"max_blocks": 3,
+"settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Wearable Wellness"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1500 x 800px .jpg recommended."
+    },
+    {
+      "type": "video_url",
+      "accept": ["vimeo", "youtube"],
+      "id": "video_url",
+      "label": "Video URL",
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+    }
+  ],
+  "blocks": [
+  {
+    "type": "Tab",
+    "name": "Tab",
+    "settings": [
+      {
+        "type": "text",
+        "id": "tab-title",
+        "label": "Tab title",
+        "default": "Tab title"
+      },
+      {
+        "type": "image_picker",
+        "id": "tab-logo",
+        "label": "Tab logo image",
+        "info": "Choose any image or opload from your device."
+      },
+      {
+        "type": "text",
+        "id": "content-heading",
+        "label": "Tab content title",
+        "default": "Tab content title"
+      },
+      {
+        "type": "text",
+        "id": "content",
+        "label": "Tab content",
+        "default": "Tab content"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button-url",
+        "label": "Button link"
+      },
+      {
+        "type": "header",
+        "content": "Product 1"
+      },
+      {
+        "type": "product",
+        "id": "product_1",
+        "label": "Product",
+        "info": "Product not showing correctly? [Learn more](http://support.maestrooo.com/article/153-home-page-shop-the-look-section-is-displaying-incorrect-products)."
+      },
+      {
+        "type": "header",
+        "content": "Product 2"
+      },
+      {
+        "type": "product",
+        "id": "product_2",
+        "label": "Product",
+        "info": "Product not showing correctly? [Learn more](http://support.maestrooo.com/article/153-home-page-shop-the-look-section-is-displaying-incorrect-products)."
+      }
+    ]
+  }
+],
+"presets": [
+  {
+  "name": "Wearable wellness tabs",
+  "category": "Tabs",
+  "blocks": [
+        {
+          "type": "Tab",
+          "settings": {}
+        }
+      ]
+  }
+]
+}
+{% endschema %}
